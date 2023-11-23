@@ -1,11 +1,25 @@
+import argparse
 from pathlib import Path
-import json
 import os
 import re
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--filename', type=str, required=True)
+args = parser.parse_args()
 
 #################### Constants ######################
-directory_in_str = "outputs\m3u\m3u_2023-04-08"
+directory_in_str = f'outputs/m3u/{args.filename}'
+
+if (not os.path.exists(f'./{directory_in_str}')):
+    sys.exit("Provided file doesn't exist in input folder")
+
 exclude = set(['backups'])
+input_error_message = """
+####################################
+      Invalid input, try again     
+####################################
+"""
 #####################################################
 
 def handleUserInput() -> str:
